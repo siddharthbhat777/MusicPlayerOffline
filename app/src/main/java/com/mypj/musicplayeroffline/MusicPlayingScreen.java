@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -86,7 +88,6 @@ public class MusicPlayingScreen extends AppCompatActivity {
             }
         };
         updateSeek.start();
-        mediaPlayer.setLooping(true);
 
         imageButtonPlay.setImageResource(R.drawable.pause);
         imageButtonPlay.setOnClickListener(new View.OnClickListener() {
@@ -141,5 +142,7 @@ public class MusicPlayingScreen extends AppCompatActivity {
                 imageButtonPlay.setImageResource(R.drawable.pause);
             }
         });
+
+        mediaPlayer.setLooping(true);
     }
 }
