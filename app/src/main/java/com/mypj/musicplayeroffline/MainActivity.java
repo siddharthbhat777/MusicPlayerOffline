@@ -1,14 +1,16 @@
 package com.mypj.musicplayeroffline;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -59,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        //Toast.makeText(MainActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
