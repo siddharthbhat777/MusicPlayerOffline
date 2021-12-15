@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/card_shape"
+        android:background="@drawable/action_bar_shape"
         android:elevation="16sp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
