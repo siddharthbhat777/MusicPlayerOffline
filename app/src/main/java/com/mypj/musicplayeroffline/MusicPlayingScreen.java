@@ -1,10 +1,14 @@
 package com.mypj.musicplayeroffline;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -15,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Clock;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MusicPlayingScreen extends AppCompatActivity {
 
@@ -28,7 +34,7 @@ public class MusicPlayingScreen extends AppCompatActivity {
     }
 
     ImageButton imageButtonPlay, imageButtonPrevious, imageButtonNext;
-    TextView textViewSongName;
+    TextView textViewSongName, textViewCurrentTime, textViewEndTime;
     MediaPlayer mediaPlayer;
     ArrayList<File> songs;
     String textContent;
@@ -44,6 +50,8 @@ public class MusicPlayingScreen extends AppCompatActivity {
         imageButtonNext = findViewById(R.id.imageButtonNext);
         imageButtonPrevious = findViewById(R.id.imageButtonPrevious);
         textViewSongName = findViewById(R.id.textViewSongName);
+        textViewCurrentTime = findViewById(R.id.textViewCurentTime);
+        textViewEndTime = findViewById(R.id.textViewEndTime);
         seekBar = findViewById(R.id.seekBar);
 
         Intent intent = getIntent();
@@ -59,10 +67,14 @@ public class MusicPlayingScreen extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 seekBar.setMax(mediaPlayer.getDuration());
+                String totalTime = createTimeLabel(mediaPlayer.getDuration());
+                textViewEndTime.setText(totalTime);
                 mediaPlayer.start();
                 seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                        String currentTime = createTimeLabel(i);
+                        textViewCurrentTime.setText(currentTime);
                     }
 
                     @Override
@@ -94,6 +106,8 @@ public class MusicPlayingScreen extends AppCompatActivity {
             }
         };
         updateSeek.start();
+
+
 
         imageButtonPlay.setImageResource(R.drawable.pause);
         imageButtonPlay.setOnClickListener(new View.OnClickListener() {
@@ -148,5 +162,18 @@ public class MusicPlayingScreen extends AppCompatActivity {
                 imageButtonPlay.setImageResource(R.drawable.pause);
             }
         });
+    }
+    public String createTimeLabel(int duration) {
+        String timeLabel = "";
+        int min = duration / 1000 / 60;
+        int sec = duration / 1000 % 60;
+
+        timeLabel += min + ":";
+        if (sec < 10) timeLabel += "0";
+        timeLabel += sec;
+
+        return timeLabel;
+
+
     }
 }
