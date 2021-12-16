@@ -148,7 +148,5 @@ public class MusicPlayingScreen extends AppCompatActivity {
                 imageButtonPlay.setImageResource(R.drawable.pause);
             }
         });
-
-        //mediaPlayer.setLooping(true);
     }
 }
