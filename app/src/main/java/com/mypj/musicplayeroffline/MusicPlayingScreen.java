@@ -1,6 +1,7 @@
 package com.mypj.musicplayeroffline;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MusicPlayingScreen extends AppCompatActivity {
@@ -52,24 +55,29 @@ public class MusicPlayingScreen extends AppCompatActivity {
         position = intent.getIntExtra("position", 0);
         Uri uri = Uri.parse(songs.get(position).toString());
         mediaPlayer = MediaPlayer.create(this, uri);
-        seekBar.setMax(mediaPlayer.getDuration());
-        mediaPlayer.start();
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            }
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                seekBar.setMax(mediaPlayer.getDuration());
+                mediaPlayer.start();
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
+                    }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                mediaPlayer.seekTo(seekBar.getProgress());
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        mediaPlayer.seekTo(seekBar.getProgress());
+                    }
+                });
             }
         });
-
+        mediaPlayer.setLooping(true);
         updateSeek = new Thread() {
             @Override
             public void run() {
@@ -141,6 +149,6 @@ public class MusicPlayingScreen extends AppCompatActivity {
             }
         });
 
-        mediaPlayer.setLooping(true);
+        //mediaPlayer.setLooping(true);
     }
 }
