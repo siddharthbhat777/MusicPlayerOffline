@@ -1,27 +1,16 @@
 package com.mypj.musicplayeroffline;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.File;
-import java.io.IOException;
-import java.time.Clock;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class MusicPlayingScreen extends AppCompatActivity {
 
